@@ -1,6 +1,2 @@
 /target/**/*
 Cargo.lock
-
-# Include benchmark results
-!/target/criterion/**/*
-!/target/criterion/
