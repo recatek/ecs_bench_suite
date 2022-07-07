@@ -1,6 +1,8 @@
 use bevy_ecs::prelude::*;
 
+#[derive(Component)]
 struct A(f32);
+#[derive(Component)]
 struct B(f32);
 
 pub struct Benchmark(World, Vec<Entity>);
@@ -8,7 +10,7 @@ pub struct Benchmark(World, Vec<Entity>);
 impl Benchmark {
     pub fn new() -> Self {
         let mut world = World::default();
-
+		
         let entities = world
             .spawn_batch((0..10000).map(|_| (A(0.0),)))
             .collect::<Vec<_>>();
