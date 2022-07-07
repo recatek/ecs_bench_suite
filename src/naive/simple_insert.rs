@@ -28,10 +28,10 @@ impl Benchmark {
 
     pub fn run(&mut self) {
         let mut world = World { 
-            transforms: vec![Transform(Matrix4::from_scale(1.0)); 10000],
-            positions: vec![Position(Vector3::unit_x()); 10000],
-            rotations: vec![Rotation(Vector3::unit_x()); 10000],
-            velocities: vec![Velocity(Vector3::unit_x()); 10000],
+            transforms: vec![],
+            positions: vec![],
+            rotations: vec![],
+            velocities: vec![],
         };
 
         // Capture the actual insertion process, rather than initializing as-is
