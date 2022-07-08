@@ -226,14 +226,16 @@ fn bench_serialize_binary(c: &mut Criterion) {
 }
 
 criterion_group!(
-    benchmarks,
-    bench_simple_insert,
-    bench_simple_iter,
-    bench_frag_iter_bc,
-    bench_schedule,
-    bench_heavy_compute,
-    bench_add_remove,
-    bench_serialize_text,
-    bench_serialize_binary,
+    name = benchmarks;
+    config = Criterion::default().measurement_time(std::time::Duration::from_secs(10));
+    targets = 
+        bench_simple_insert,
+        bench_simple_iter,
+        bench_frag_iter_bc,
+        bench_schedule,
+        bench_heavy_compute,
+        bench_add_remove,
+        bench_serialize_text,
+        bench_serialize_binary,
 );
 criterion_main!(benchmarks);
