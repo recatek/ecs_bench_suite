@@ -119,6 +119,10 @@ fn bench_schedule(c: &mut Criterion) {
         let mut bench = bevy::schedule::Benchmark::new();
         b.iter(move || bench.run());
     });
+    group.bench_function("bevy (naive)", |b| {
+        let mut bench = bevy::schedule_naive::Benchmark::new();
+        b.iter(move || bench.run());
+    });
     group.bench_function("planck_ecs", |b| {
         let mut bench = planck_ecs::schedule::Benchmark::new();
         b.iter(move || bench.run());
