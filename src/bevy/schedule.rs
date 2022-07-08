@@ -44,7 +44,7 @@ impl Benchmark {
         world.spawn_batch((0..10000).map(|_| (A(0.0), B(0.0), C(0.0), E(0.0))));
 
         let mut schedule = Schedule::default();
-        schedule.add_stage("main", SystemStage::parallel());
+        schedule.add_stage("main", SystemStage::single_threaded());
         schedule.add_system_to_stage("main", ab);
         schedule.add_system_to_stage("main", cd);
         schedule.add_system_to_stage("main", ce);
