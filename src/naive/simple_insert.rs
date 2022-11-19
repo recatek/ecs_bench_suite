@@ -19,25 +19,22 @@ struct World {
     velocities: Vec<Velocity>,
 }
 
-pub struct Benchmark;
+pub struct Benchmark(World);
 
 impl Benchmark {
     pub fn new() -> Self {
-        Self
+        Self(World {
+            transforms: Vec::with_capacity(10000),
+            positions: Vec::with_capacity(10000),
+            rotations: Vec::with_capacity(10000),
+            velocities: Vec::with_capacity(10000),
+        })
     }
 
     pub fn run(&mut self) {
-        let mut world = World { 
-            transforms: vec![],
-            positions: vec![],
-            rotations: vec![],
-            velocities: vec![],
-        };
-
-        // Capture the actual insertion process, rather than initializing as-is
-        world.transforms.extend(vec![Transform(Matrix4::from_scale(1.0)); 10000]);
-        world.positions.extend(vec![Position(Vector3::unit_x()); 10000]);
-        world.rotations.extend(vec![Rotation(Vector3::unit_x()); 10000]);
-        world.velocities.extend(vec![Velocity(Vector3::unit_x()); 10000]);
+        self.0.transforms.extend(vec![Transform(Matrix4::from_scale(1.0)); 10000]);
+        self.0.positions.extend(vec![Position(Vector3::unit_x()); 10000]);
+        self.0.rotations.extend(vec![Rotation(Vector3::unit_x()); 10000]);
+        self.0.velocities.extend(vec![Velocity(Vector3::unit_x()); 10000]);
     }
 }
