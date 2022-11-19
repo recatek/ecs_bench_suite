@@ -36,7 +36,7 @@ fn bench_simple_insert(c: &mut Criterion) {
 fn bench_simple_iter(c: &mut Criterion) {
     let mut group = c.benchmark_group("simple_iter");
     group.bench_function("naive", |b| {
-        let mut bench = legion::simple_iter::Benchmark::new();
+        let mut bench = naive::simple_iter::Benchmark::new();
         b.iter(move || bench.run());
     });
     group.bench_function("legion", |b| {
@@ -72,7 +72,7 @@ fn bench_simple_iter(c: &mut Criterion) {
 fn bench_frag_iter_bc(c: &mut Criterion) {
     let mut group = c.benchmark_group("fragmented_iter");
     group.bench_function("naive", |b| {
-        let mut bench = legion::frag_iter::Benchmark::new();
+        let mut bench = naive::frag_iter::Benchmark::new();
         b.iter(move || bench.run());
     });
     group.bench_function("legion", |b| {
@@ -104,7 +104,7 @@ fn bench_frag_iter_bc(c: &mut Criterion) {
 fn bench_schedule(c: &mut Criterion) {
     let mut group = c.benchmark_group("schedule");
     group.bench_function("naive", |b| {
-        let mut bench = legion::schedule::Benchmark::new();
+        let mut bench = naive::schedule::Benchmark::new();
         b.iter(move || bench.run());
     });
     group.bench_function("legion", |b| {
@@ -115,16 +115,20 @@ fn bench_schedule(c: &mut Criterion) {
         let mut bench = legion_packed::schedule::Benchmark::new();
         b.iter(move || bench.run());
     });
-    group.bench_function("bevy", |b| {
-        let mut bench = bevy::schedule::Benchmark::new();
+    group.bench_function("bevy (manual)", |b| {
+        let mut bench = bevy::schedule_manual::Benchmark::new();
         b.iter(move || bench.run());
     });
-    group.bench_function("bevy (naive)", |b| {
-        let mut bench = bevy::schedule_naive::Benchmark::new();
+    group.bench_function("bevy (parallel)", |b| {
+        let mut bench = bevy::schedule_parallel::Benchmark::new();
         b.iter(move || bench.run());
     });
-    group.bench_function("hecs (naive)", |b| {
-        let mut bench = hecs::schedule_naive::Benchmark::new();
+    group.bench_function("bevy (single)", |b| {
+        let mut bench = bevy::schedule_single::Benchmark::new();
+        b.iter(move || bench.run());
+    });
+    group.bench_function("hecs (manual)", |b| {
+        let mut bench = hecs::schedule_manual::Benchmark::new();
         b.iter(move || bench.run());
     });
     group.bench_function("planck_ecs", |b| {
@@ -144,7 +148,7 @@ fn bench_schedule(c: &mut Criterion) {
 fn bench_heavy_compute(c: &mut Criterion) {
     let mut group = c.benchmark_group("heavy_compute");
     group.bench_function("naive", |b| {
-        let mut bench = legion::heavy_compute::Benchmark::new();
+        let mut bench = naive::heavy_compute::Benchmark::new();
         b.iter(move || bench.run());
     });
     group.bench_function("legion", |b| {
@@ -201,38 +205,6 @@ fn bench_add_remove(c: &mut Criterion) {
     });
 }
 
-fn bench_serialize_text(c: &mut Criterion) {
-    let mut group = c.benchmark_group("serialize_text");
-    group.bench_function("legion", |b| {
-        let mut bench = legion::serialize_text::Benchmark::new();
-        b.iter(move || bench.run());
-    });
-    group.bench_function("hecs", |b| {
-        let mut bench = hecs::serialize_text::Benchmark::new();
-        b.iter(move || bench.run());
-    });
-    // group.bench_function("bevy", |b| {
-    //     let mut bench = bevy::serialize_text::Benchmark::new();
-    //     b.iter(move || bench.run());
-    // });
-}
-
-fn bench_serialize_binary(c: &mut Criterion) {
-    let mut group = c.benchmark_group("serialize_binary");
-    group.bench_function("legion", |b| {
-        let mut bench = legion::serialize_binary::Benchmark::new();
-        b.iter(move || bench.run());
-    });
-    group.bench_function("hecs", |b| {
-        let mut bench = hecs::serialize_binary::Benchmark::new();
-        b.iter(move || bench.run());
-    });
-    // group.bench_function("bevy", |b| {
-    //     let mut bench = bevy::serialize_text::Benchmark::new();
-    //     b.iter(move || bench.run());
-    // });
-}
-
 criterion_group!(
     name = benchmarks;
     config = Criterion::default().measurement_time(std::time::Duration::from_secs(10));
@@ -243,7 +215,5 @@ criterion_group!(
         bench_schedule,
         bench_heavy_compute,
         bench_add_remove,
-        bench_serialize_text,
-        bench_serialize_binary,
 );
 criterion_main!(benchmarks);

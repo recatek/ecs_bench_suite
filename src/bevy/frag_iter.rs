@@ -1,33 +1,30 @@
 use bevy_ecs::prelude::*;
-
 macro_rules! create_entities {
     ($world:ident; $( $variants:ident ),*) => {
         $(
-            #[derive(Component)]
+            #[derive(bevy_ecs::component::Component)]
+            #[component(storage = "SparseSet")]
             struct $variants(f32);
+
             $world.spawn_batch((0..20).map(|_| ($variants(0.0), Data(1.0))));
         )*
     };
 }
 
-#[derive(Component)]
+#[derive(bevy_ecs::component::Component)]
 struct Data(f32);
 
-pub struct Benchmark<'w>(World, QueryState<&'w mut Data>);
-
-impl<'w> Benchmark<'w> {
+pub struct Benchmark(World);
+impl Benchmark {
     pub fn new() -> Self {
-        let mut world = World::new();
-
+        let mut world = World::default();
         create_entities!(world; A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z);
-
-        let query = world.query::<&mut Data>();
-        Self(world, query)
+        Self(world)
     }
-
     pub fn run(&mut self) {
-        self.1.for_each_mut(&mut self.0, |mut data| {
+        let mut query = self.0.query::<&mut Data>();
+        for mut data in query.iter_mut(&mut self.0) {
             data.0 *= 2.0;
-        });
+        }
     }
 }

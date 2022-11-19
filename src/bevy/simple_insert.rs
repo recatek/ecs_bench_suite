@@ -1,26 +1,21 @@
 use bevy_ecs::prelude::*;
 use cgmath::*;
 
-#[derive(Component, Copy, Clone)]
+#[derive(Copy, Clone, bevy_ecs::component::Component)]
 struct Transform(Matrix4<f32>);
 
-#[derive(Component, Copy, Clone)]
+#[derive(Copy, Clone, bevy_ecs::component::Component)]
 struct Position(Vector3<f32>);
 
-#[derive(Component, Copy, Clone)]
+#[derive(Copy, Clone, bevy_ecs::component::Component)]
 struct Rotation(Vector3<f32>);
 
-#[derive(Component, Copy, Clone)]
+#[derive(Copy, Clone, bevy_ecs::component::Component)]
 struct Velocity(Vector3<f32>);
 
-pub struct Benchmark;
-
+pub struct Benchmark(World);
 impl Benchmark {
     pub fn new() -> Self {
-        Self
-    }
-
-    pub fn run(&mut self) {
         let mut world = World::new();
         world.spawn_batch((0..10_000).map(|_| {
             (
@@ -30,5 +25,12 @@ impl Benchmark {
                 Velocity(Vector3::unit_x()),
             )
         }));
+        Self(world)
+    }
+    pub fn run(&mut self) {
+        let mut query = self.0.query::<(&Velocity, &mut Position)>();
+        for (velocity, mut position) in query.iter_mut(&mut self.0) {
+            position.0 += velocity.0;
+        }
     }
 }
