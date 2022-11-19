@@ -34,14 +34,8 @@ impl Benchmark {
     pub fn run(&mut self) {
         for _ in 0..10000 {
             self.0.transforms.push(Transform(Matrix4::from_scale(1.0)));
-        }
-        for _ in 0..10000 {
             self.0.positions.push(Position(Vector3::unit_x()));
-        }
-        for _ in 0..10000 {
             self.0.rotations.push(Rotation(Vector3::unit_x()));
-        }
-        for _ in 0..10000 {
             self.0.velocities.push(Velocity(Vector3::unit_x()));
         }
     }
