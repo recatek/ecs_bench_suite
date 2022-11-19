@@ -32,9 +32,17 @@ impl Benchmark {
     }
 
     pub fn run(&mut self) {
-        self.0.transforms.extend(vec![Transform(Matrix4::from_scale(1.0)); 10000]);
-        self.0.positions.extend(vec![Position(Vector3::unit_x()); 10000]);
-        self.0.rotations.extend(vec![Rotation(Vector3::unit_x()); 10000]);
-        self.0.velocities.extend(vec![Velocity(Vector3::unit_x()); 10000]);
+        for _ in 0..10000 {
+            self.0.transforms.push(Transform(Matrix4::from_scale(1.0)));
+        }
+        for _ in 0..10000 {
+            self.0.positions.push(Position(Vector3::unit_x()));
+        }
+        for _ in 0..10000 {
+            self.0.rotations.push(Rotation(Vector3::unit_x()));
+        }
+        for _ in 0..10000 {
+            self.0.velocities.push(Velocity(Vector3::unit_x()));
+        }
     }
 }
