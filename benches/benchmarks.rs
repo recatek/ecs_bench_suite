@@ -19,14 +19,14 @@ fn bench_simple_insert(c: &mut Criterion) {
         let mut bench = hecs::simple_insert::Benchmark::new();
         b.iter(move || bench.run());
     });
-    group.bench_function("planck_ecs", |b| {
-        let mut bench = planck_ecs::simple_insert::Benchmark::new();
-        b.iter(move || bench.run());
-    });
-    group.bench_function("shipyard", |b| {
-        let mut bench = shipyard::simple_insert::Benchmark::new();
-        b.iter(move || bench.run());
-    });
+    // group.bench_function("planck_ecs", |b| {
+    //     let mut bench = planck_ecs::simple_insert::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
+    // group.bench_function("shipyard", |b| {
+    //     let mut bench = shipyard::simple_insert::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
     group.bench_function("specs", |b| {
         let mut bench = specs::simple_insert::Benchmark::new();
         b.iter(move || bench.run());
@@ -55,14 +55,14 @@ fn bench_simple_iter(c: &mut Criterion) {
         let mut bench = hecs::simple_iter::Benchmark::new();
         b.iter(move || bench.run());
     });
-    group.bench_function("planck_ecs", |b| {
-        let mut bench = planck_ecs::simple_iter::Benchmark::new();
-        b.iter(move || bench.run());
-    });
-    group.bench_function("shipyard", |b| {
-        let mut bench = shipyard::simple_iter::Benchmark::new();
-        b.iter(move || bench.run());
-    });
+    // group.bench_function("planck_ecs", |b| {
+    //     let mut bench = planck_ecs::simple_iter::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
+    // group.bench_function("shipyard", |b| {
+    //     let mut bench = shipyard::simple_iter::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
     group.bench_function("specs", |b| {
         let mut bench = specs::simple_iter::Benchmark::new();
         b.iter(move || bench.run());
@@ -87,14 +87,14 @@ fn bench_frag_iter_bc(c: &mut Criterion) {
         let mut bench = hecs::frag_iter::Benchmark::new();
         b.iter(move || bench.run());
     });
-    group.bench_function("planck_ecs", |b| {
-        let mut bench = planck_ecs::frag_iter::Benchmark::new();
-        b.iter(move || bench.run());
-    });
-    group.bench_function("shipyard", |b| {
-        let mut bench = shipyard::frag_iter::Benchmark::new();
-        b.iter(move || bench.run());
-    });
+    // group.bench_function("planck_ecs", |b| {
+    //     let mut bench = planck_ecs::frag_iter::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
+    // group.bench_function("shipyard", |b| {
+    //     let mut bench = shipyard::frag_iter::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
     group.bench_function("specs", |b| {
         let mut bench = specs::frag_iter::Benchmark::new();
         b.iter(move || bench.run());
@@ -135,10 +135,10 @@ fn bench_schedule(c: &mut Criterion) {
         let mut bench = planck_ecs::schedule::Benchmark::new();
         b.iter(move || bench.run());
     });
-    group.bench_function("shipyard", |b| {
-        let mut bench = shipyard::schedule::Benchmark::new();
-        b.iter(move || bench.run());
-    });
+    // group.bench_function("shipyard", |b| {
+    //     let mut bench = shipyard::schedule::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
     group.bench_function("specs", |b| {
         let mut bench = specs::schedule::Benchmark::new();
         b.iter(move || bench.run());
@@ -167,10 +167,10 @@ fn bench_heavy_compute(c: &mut Criterion) {
         let mut bench = hecs::heavy_compute::Benchmark::new();
         b.iter(move || bench.run());
     });
-    group.bench_function("shipyard", |b| {
-        let mut bench = shipyard::heavy_compute::Benchmark::new();
-        b.iter(move || bench.run());
-    });
+    // group.bench_function("shipyard", |b| {
+    //     let mut bench = shipyard::heavy_compute::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
     group.bench_function("specs", |b| {
         let mut bench = specs::heavy_compute::Benchmark::new();
         b.iter(move || bench.run());
@@ -187,14 +187,14 @@ fn bench_add_remove(c: &mut Criterion) {
         let mut bench = hecs::add_remove::Benchmark::new();
         b.iter(move || bench.run());
     });
-    group.bench_function("planck_ecs", |b| {
-        let mut bench = planck_ecs::add_remove::Benchmark::new();
-        b.iter(move || bench.run());
-    });
-    group.bench_function("shipyard", |b| {
-        let mut bench = shipyard::add_remove::Benchmark::new();
-        b.iter(move || bench.run());
-    });
+    // group.bench_function("planck_ecs", |b| {
+    //     let mut bench = planck_ecs::add_remove::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
+    // group.bench_function("shipyard", |b| {
+    //     let mut bench = shipyard::add_remove::Benchmark::new();
+    //     b.iter(move || bench.run());
+    // });
     group.bench_function("specs", |b| {
         let mut bench = specs::add_remove::Benchmark::new();
         b.iter(move || bench.run());
