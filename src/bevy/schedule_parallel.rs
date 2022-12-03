@@ -17,17 +17,17 @@ struct E(f32);
 
 fn ab(mut query: Query<(&mut A, &mut B)>) {
     query.for_each_mut(|(mut a, mut b)| {
-        std::mem::swap(&mut a.0, &mut b.0);
+        std::mem::swap(&mut a.bypass_change_detection().0, &mut b.bypass_change_detection().0);
     });
 }
 fn cd(mut query: Query<(&mut C, &mut D)>) {
     query.for_each_mut(|(mut c, mut d)| {
-        std::mem::swap(&mut c.0, &mut d.0);
+        std::mem::swap(&mut c.bypass_change_detection().0, &mut d.bypass_change_detection().0);
     });
 }
 fn ce(mut query: Query<(&mut C, &mut E)>) {
     query.for_each_mut(|(mut c, mut e)| {
-        std::mem::swap(&mut c.0, &mut e.0);
+        std::mem::swap(&mut c.bypass_change_detection().0, &mut e.bypass_change_detection().0);
     });
 }
 pub struct Benchmark(World, Schedule);

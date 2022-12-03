@@ -35,7 +35,7 @@ impl<'w> Benchmark<'w> {
     pub fn run(&mut self) {
         self.1
             .for_each_mut(&mut self.0, |(velocity, mut position)| {
-                position.0 += velocity.0;
+                position.bypass_change_detection().0 += velocity.0;
             });
     }
 }

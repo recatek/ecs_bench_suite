@@ -24,7 +24,7 @@ impl Benchmark {
     pub fn run(&mut self) {
         let mut query = self.0.query::<&mut Data>();
         for mut data in query.iter_mut(&mut self.0) {
-            data.0 *= 2.0;
+            data.bypass_change_detection().0 *= 2.0;
         }
     }
 }

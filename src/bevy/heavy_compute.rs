@@ -35,10 +35,10 @@ impl Benchmark {
 
         query.par_for_each_mut(&mut self.0, 64, |(mut pos, mut aff)| {
             for _ in 0..100 {
-                aff.0 = aff.0.invert().unwrap();
+                aff.bypass_change_detection().0 = aff.0.invert().unwrap();
             }
 
-            pos.0 = aff.0.transform_vector(pos.0);
+            pos.bypass_change_detection().0 = aff.0.transform_vector(pos.0);
         });
     }
 }
