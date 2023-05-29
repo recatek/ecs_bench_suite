@@ -17,17 +17,26 @@ struct E(f32);
 
 fn ab(mut query: Query<(&mut A, &mut B)>) {
     query.for_each_mut(|(mut a, mut b)| {
-        std::mem::swap(&mut a.bypass_change_detection().0, &mut b.bypass_change_detection().0);
+        std::mem::swap(
+            &mut a.bypass_change_detection().0,
+            &mut b.bypass_change_detection().0,
+        );
     });
 }
 fn cd(mut query: Query<(&mut C, &mut D)>) {
     query.for_each_mut(|(mut c, mut d)| {
-        std::mem::swap(&mut c.bypass_change_detection().0, &mut d.bypass_change_detection().0);
+        std::mem::swap(
+            &mut c.bypass_change_detection().0,
+            &mut d.bypass_change_detection().0,
+        );
     });
 }
 fn ce(mut query: Query<(&mut C, &mut E)>) {
     query.for_each_mut(|(mut c, mut e)| {
-        std::mem::swap(&mut c.bypass_change_detection().0, &mut e.bypass_change_detection().0);
+        std::mem::swap(
+            &mut c.bypass_change_detection().0,
+            &mut e.bypass_change_detection().0,
+        );
     });
 }
 pub struct Benchmark(World, Schedule);
@@ -40,10 +49,10 @@ impl Benchmark {
         world.spawn_batch((0..10000).map(|_| (A(0.0), B(0.0), C(0.0), E(0.0))));
 
         let mut schedule = Schedule::default();
-        schedule.add_stage("main", SystemStage::parallel());
-        schedule.add_system_to_stage("main", ab);
-        schedule.add_system_to_stage("main", cd);
-        schedule.add_system_to_stage("main", ce);
+        schedule.set_executor_kind(bevy_ecs::schedule::ExecutorKind::MultiThreaded);
+        schedule.add_system(ab);
+        schedule.add_system(cd);
+        schedule.add_system(ce);
 
         Self(world, schedule)
     }

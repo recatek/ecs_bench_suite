@@ -33,12 +33,14 @@ impl Benchmark {
     pub fn run(&mut self) {
         let mut query = self.0.query::<(&mut Position, &mut Affine)>();
 
-        query.par_for_each_mut(&mut self.0, 64, |(mut pos, mut aff)| {
-            for _ in 0..100 {
-                aff.bypass_change_detection().0 = aff.0.invert().unwrap();
-            }
+        query
+            .par_iter(&mut self.0)
+            .for_each_mut(|(mut pos, mut aff)| {
+                for _ in 0..100 {
+                    aff.bypass_change_detection().0 = aff.0.invert().unwrap();
+                }
 
-            pos.bypass_change_detection().0 = aff.0.transform_vector(pos.0);
-        });
+                pos.bypass_change_detection().0 = aff.0.transform_vector(pos.0);
+            });
     }
 }
