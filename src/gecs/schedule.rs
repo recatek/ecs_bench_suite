@@ -16,10 +16,10 @@ pub struct D(f32);
 pub struct E(f32);
 
 ecs_world! {
-    archetype!(Arch1, 10000, A, B);
-    archetype!(Arch2, 10000, A, B, C);
-    archetype!(Arch3, 10000, A, B, C, D);
-    archetype!(Arch4, 10000, A, B, C, E);
+    ecs_archetype!(Arch1, 10000, A, B);
+    ecs_archetype!(Arch2, 10000, A, B, C);
+    ecs_archetype!(Arch3, 10000, A, B, C, D);
+    ecs_archetype!(Arch4, 10000, A, B, C, E);
 }
 
 pub struct Benchmark(World);

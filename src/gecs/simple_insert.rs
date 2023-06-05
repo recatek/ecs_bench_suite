@@ -14,7 +14,7 @@ pub struct Rotation(Vector3<f32>);
 pub struct Velocity(Vector3<f32>);
 
 ecs_world! {
-    archetype!(Arch, 10000, Transform, Position, Rotation, Velocity);
+    ecs_archetype!(Arch, 10000, Transform, Position, Rotation, Velocity);
 }
 
 pub struct Benchmark;
